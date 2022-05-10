@@ -12,12 +12,18 @@ import UserForm from "./components/UserForm";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={"/mongo-frontend"}>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/users/new" element={<UserForm />} />
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<Layout />}>
+          <Route path={`${process.env.PUBLIC_URL}/`} element={<HomePage />} />
+          <Route
+            path={`${process.env.PUBLIC_URL}/users`}
+            element={<UserList />}
+          />
+          <Route
+            path={`${process.env.PUBLIC_URL}/users/new`}
+            element={<UserForm />}
+          />
           <Route
             path="/users/edit/:id"
             element={<UserForm editMode={true} />}
