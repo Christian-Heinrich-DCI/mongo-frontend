@@ -8,6 +8,7 @@ const apiHost = process.env.REACT_APP_API_HOST;
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [ageFilter, setAgeFilter] = useState(18);
+  const [sliding, setSliding] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,8 +20,10 @@ export default function UserList() {
       console.log(response.data);
       // axios
     };
-    loadData();
-  }, [ageFilter]);
+    if (!sliding) {
+      loadData();
+    }
+  }, [ageFilter, sliding]);
 
   const deleteUser = async (id) => {
     try {
@@ -44,6 +47,12 @@ export default function UserList() {
         value={ageFilter}
         onChange={(e) => {
           setAgeFilter(e.target.value);
+        }}
+        onMouseDown={() => {
+          setSliding(true);
+        }}
+        onMouseUp={() => {
+          setSliding(false);
         }}
       />{" "}
       {ageFilter}
